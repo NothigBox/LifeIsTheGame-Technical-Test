@@ -41,8 +41,8 @@ MonoBehaviour:
     - rid: 3852765776395370504
       type: {class: BlackHoleProjectileData, ns: , asm: Assembly-CSharp}
       data:
-        atractionForce: 0
-        atractionRadius: 0
+        force: 2
+        radius: 2
     - rid: 3852765776395370505
       type: {class: ParabolicShotData, ns: , asm: Assembly-CSharp}
       data:
@@ -50,4 +50,4 @@ MonoBehaviour:
     - rid: 3852765776395370506
       type: {class: DirectShotData, ns: , asm: Assembly-CSharp}
       data:
-        speed: 2
+        speed: 5

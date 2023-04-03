@@ -10,10 +10,10 @@ public class CharacterFPVMouse : MonoBehaviour
     [SerializeField] private float speedX;
     [SerializeField] private float speedY;
 
-    Transform orientation;
-
     private float rotationX;
     private float rotationY;
+
+    public bool useLocalRotation;
 
     private void Start()
     {
@@ -31,7 +31,8 @@ public class CharacterFPVMouse : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, limitsX.x, limitsX.y);
         rotationY = Mathf.Clamp(rotationY, limitsY.x, limitsY.y);
 
-        transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        if(useLocalRotation) transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        else transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
     }
 }
 

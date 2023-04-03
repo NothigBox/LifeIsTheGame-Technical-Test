@@ -13,6 +13,20 @@ public class ShotInfo : ScriptableObject
         {
             if(weaponInfo.ID == id) 
             {
+                switch (weaponInfo.ProjectileMode)
+                {
+                    case ProjectileMode.None:
+                        break;
+
+                    case ProjectileMode.BlackHole:
+                        var blackHole = projectile.AddComponent<BlackHoleProjectile>();
+                        blackHole.SetData((BlackHoleProjectileData) weaponInfo.projectileData);
+                        break;
+
+                    case ProjectileMode.Explosion:
+                        break;
+                }
+
                 switch (weaponInfo.ShotMode)
                 {
                     case ShotMode.Parabolic:

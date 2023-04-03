@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1931233731261134878}
   - component: {fileID: 1931233731261134881}
   - component: {fileID: 1931233731261134880}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BlackHoleProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 1931233731969394254}
   - component: {fileID: 1931233731969394257}
   - component: {fileID: 1931233731969394256}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,9 +4,9 @@ using UnityEngine;
 [Serializable]
 public struct BlackHoleProjectileData : IProjectileData
 {
-    [SerializeField] private float orbitalSpeed;
-    [SerializeField] private float effectRadius;
+    [SerializeField] private float force;
+    [SerializeField] private float radius;
 
-    public float OrbitalSpeed => orbitalSpeed;
-    public float EffectRadius => effectRadius;
+    public float Force => force;
+    public float Radius => radius;
 }
