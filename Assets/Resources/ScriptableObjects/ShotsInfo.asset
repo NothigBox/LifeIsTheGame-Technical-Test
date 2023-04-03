@@ -41,13 +41,15 @@ MonoBehaviour:
     - rid: 3852765776395370504
       type: {class: BlackHoleProjectileData, ns: , asm: Assembly-CSharp}
       data:
-        force: 2
-        radius: 2
+        force: 3
+        radius: 5
+        mass: 5
     - rid: 3852765776395370505
       type: {class: ParabolicShotData, ns: , asm: Assembly-CSharp}
       data:
-        forceVector: {x: 0, y: 4, z: 2}
+        forceY: 5
+        forceXZ: 5
     - rid: 3852765776395370506
       type: {class: DirectShotData, ns: , asm: Assembly-CSharp}
       data:
-        speed: 5
+        speed: 7

@@ -30,30 +30,26 @@ public class ShotInfo : ScriptableObject
                 switch (weaponInfo.ShotMode)
                 {
                     case ShotMode.Parabolic:
-                        var parabolicShotData = (ParabolicShotData) weaponInfo.shotData;
-                        var parabilicRigidBody = projectile.AddComponent<Rigidbody>();
-
-                        //TO DO: Make that parabolic shot work with the projectileSpawnPoint rotation.
-                        /*
-                        Vector3 force = parabolicShotData.ForceVector.normalized;
                         Vector3 forward = projectile.transform.forward;
-                        Vector3 shotVector = new Vector3(forward.x * force.x, forward.y * force.y, forward.z * force.z);
 
-                        parabilicRigidBody.AddForce(shotVector * parabolicShotData.InitialVelocity, ForceMode.Impulse);
-                        */
+                        var parabolicShotData = (ParabolicShotData) weaponInfo.shotData;
+                        var parabilicRigidBody = projectile.GetComponent<Rigidbody>();
+                        if(parabilicRigidBody == null) parabilicRigidBody = projectile.AddComponent<Rigidbody>();
 
-                        parabilicRigidBody.AddForce(parabolicShotData.ForceVector, ForceMode.Impulse);
+                        parabilicRigidBody.AddForce(Vector3.up * parabolicShotData.ForceY, ForceMode.Impulse);
+                        parabilicRigidBody.AddForce(new Vector3(forward.x, 0f, forward.z) * parabolicShotData.ForceXZ, ForceMode.Impulse);
                         break;
 
                     case ShotMode.Direct:
                         var directShotData = (DirectShotData) weaponInfo.shotData;
-                        var directRigidbody = projectile.AddComponent<Rigidbody>();
+                        var directRigidbody = projectile.GetComponent<Rigidbody>();
+                        if(directRigidbody == null) directRigidbody = projectile.AddComponent<Rigidbody>();
                         directRigidbody.useGravity = false;
 
                         directRigidbody.AddForce(projectile.transform.forward * directShotData.Speed, ForceMode.VelocityChange);
                         break;
 
-                    case ShotMode.Free:
+                    case ShotMode.Spiral:
                         break;
                 }
             }
@@ -85,7 +81,7 @@ public class ShotInfo : ScriptableObject
                         weaponInfo.shotData = new DirectShotData();
                         break;
 
-                    case ShotMode.Free:
+                    case ShotMode.Spiral:
                         weaponInfo.shotData = new ParabolicShotData();
                         break;
                 }
@@ -118,5 +114,5 @@ public class ShotInfo : ScriptableObject
     }
 }
 
-public enum ShotMode { Parabolic, Direct, Free }
+public enum ShotMode { Parabolic, Direct, Spiral }
 public enum ProjectileMode { None, BlackHole, Explosion }

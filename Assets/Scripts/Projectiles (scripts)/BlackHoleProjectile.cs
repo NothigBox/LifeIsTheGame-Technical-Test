@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class BlackHoleProjectile : MonoBehaviour
 {
     private BlackHoleProjectileData data;
@@ -12,7 +13,7 @@ public class BlackHoleProjectile : MonoBehaviour
         {
             var otherRb = other.GetComponent<Rigidbody>();
 
-            float mass = GetComponent<Rigidbody>().mass;
+            float mass = data.Mass;
             float otherMass = otherRb.mass;
             float distance = Vector3.Distance(transform.position, other.transform.position);
 
@@ -26,7 +27,9 @@ public class BlackHoleProjectile : MonoBehaviour
     {
         data = projectileData;
 
-        var newCol = new GameObject();
+        GetComponent<Rigidbody>().mass = data.Mass;
+
+        var newCol = new GameObject("BlackHoleCollider");
         newCol.transform.SetParent(transform);
         newCol.transform.localPosition = Vector3.zero;
         newCol.transform.localRotation = Quaternion.identity;

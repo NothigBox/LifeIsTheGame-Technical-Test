@@ -5,9 +5,9 @@ using UnityEngine;
 [Serializable]
 public struct ParabolicShotData : IShotData
 {
-    //[SerializeField] private float initialVelocity;
-    [SerializeField] private Vector3 forceVector;
+    [SerializeField] private float forceY;
+    [SerializeField] private float forceXZ;
 
-    //public float InitialVelocity => initialVelocity;
-    public Vector3 ForceVector => forceVector;
-}
+    public float ForceY => forceY;
+    public float ForceXZ => forceXZ;
+}   
