@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class BlackHoleProjectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private SphereCollider sphereCollider;
+    private float orbitalSpeed;
+
+    private void Awake()
     {
-        
+        sphereCollider = gameObject.AddComponent<SphereCollider>();
+        sphereCollider.isTrigger = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay(Collider other)
     {
-        
+        if (other.CompareTag("Enemy")) 
+        {
+            other.transform.RotateAround(transform.position, 10f);
+        }
+    }
+
+    public void SetData(BlackHoleProjectileData projectileData)
+    {
+        sphereCollider.radius = projectileData.EffectRadius;
+        orbitalSpeed = projectileData.OrbitalSpeed;
     }
 }
