@@ -56,7 +56,7 @@ MonoBehaviour:
   - id: ParabolicBlackHole
     shotMode: 0
     shotData:
-      rid: 3852765795500425233
+      rid: 3852765805852491777
     lastShotMode: 0
     projectileModel: {fileID: 1931233731261134883, guid: 3ab50d26f174365459b8b59816e2add6, type: 3}
     projectileMode: 1
@@ -93,15 +93,20 @@ MonoBehaviour:
       data:
         force: 20
         radius: 5
-        lifeTime: 3
+        lifeTime: 2.5
     - rid: 3852765795500425233
       type: {class: ParabolicShotData, ns: , asm: Assembly-CSharp}
       data:
-        forceY: 100
-        forceXZ: 50
+        forceY: 7
+        forceXZ: 5
     - rid: 3852765795500425234
       type: {class: BlackHoleProjectileData, ns: , asm: Assembly-CSharp}
       data:
         force: 3
         radius: 20
         mass: 10
+    - rid: 3852765805852491777
+      type: {class: ParabolicShotData, ns: , asm: Assembly-CSharp}
+      data:
+        forceY: 100
+        forceXZ: 50

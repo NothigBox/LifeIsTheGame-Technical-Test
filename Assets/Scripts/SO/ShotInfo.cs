@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ShotsInfo", menuName = "ScriptableObjects/ShotsInfo", order = 1)]
