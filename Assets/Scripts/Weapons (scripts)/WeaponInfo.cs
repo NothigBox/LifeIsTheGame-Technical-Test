@@ -6,10 +6,13 @@ public struct WeaponInfo
 {
     [SerializeField] private string id;
     
+    [Header("Shot")]
     [SerializeField] private ShotMode shotMode;
     [SerializeReference] public IShotData shotData;
     [HideInInspector] public ShotMode lastShotMode;
+    [Space]
 
+    [Header("Projectile")]
     [SerializeField] private GameObject projectileModel;
     [SerializeField] private ProjectileMode projectileMode;
     [SerializeReference] public IProjectileData projectileData;

@@ -7,7 +7,7 @@ public class ShotInfo : ScriptableObject
 {
     [SerializeField] private WeaponInfo[] weaponInfos;
 
-    public void Shot(string id, GameObject projectile)
+    public void Shot(string id, GameObject projectileObject)
     {
         foreach (var weaponInfo in weaponInfos)
         {
@@ -16,40 +16,48 @@ public class ShotInfo : ScriptableObject
                 switch (weaponInfo.ProjectileMode)
                 {
                     case ProjectileMode.None:
+                        projectileObject.AddComponent<DefaultProjectile>();
                         break;
 
                     case ProjectileMode.BlackHole:
-                        var blackHole = projectile.AddComponent<BlackHoleProjectile>();
+                        var blackHole = projectileObject.AddComponent<BlackHoleProjectile>();
                         blackHole.SetData((BlackHoleProjectileData) weaponInfo.projectileData);
                         break;
 
-                    case ProjectileMode.Explosion:
+                    case ProjectileMode.Explosive:
+                        var explosive = projectileObject.AddComponent<ExplosiveProjectile>();
+                        explosive.SetData((ExplosiveProjectileData) weaponInfo.projectileData);
                         break;
                 }
+
+                var projectileRb = projectileObject.GetComponent<Rigidbody>();
 
                 switch (weaponInfo.ShotMode)
                 {
                     case ShotMode.Parabolic:
-                        Vector3 forward = projectile.transform.forward;
+                        Vector3 forward = projectileObject.transform.forward;
 
                         var parabolicShotData = (ParabolicShotData) weaponInfo.shotData;
-                        var parabilicRigidBody = projectile.GetComponent<Rigidbody>();
-                        if(parabilicRigidBody == null) parabilicRigidBody = projectile.AddComponent<Rigidbody>();
 
-                        parabilicRigidBody.AddForce(Vector3.up * parabolicShotData.ForceY, ForceMode.Impulse);
-                        parabilicRigidBody.AddForce(new Vector3(forward.x, 0f, forward.z) * parabolicShotData.ForceXZ, ForceMode.Impulse);
+                        projectileRb.AddForce(Vector3.up * parabolicShotData.ForceY, ForceMode.Impulse);
+                        projectileRb.AddForce(new Vector3(forward.x, 0f, forward.z) * parabolicShotData.ForceXZ, ForceMode.Impulse);
                         break;
 
                     case ShotMode.Direct:
                         var directShotData = (DirectShotData) weaponInfo.shotData;
-                        var directRigidbody = projectile.GetComponent<Rigidbody>();
-                        if(directRigidbody == null) directRigidbody = projectile.AddComponent<Rigidbody>();
-                        directRigidbody.useGravity = false;
 
-                        directRigidbody.AddForce(projectile.transform.forward * directShotData.Speed, ForceMode.VelocityChange);
+                        projectileRb.useGravity = false;
+
+                        projectileRb.AddForce(projectileObject.transform.forward * directShotData.Speed, ForceMode.VelocityChange);
                         break;
 
-                    case ShotMode.Spiral:
+                    case ShotMode.Friction:
+                        var frictionShotData = (FrictionShotData) weaponInfo.shotData;
+
+                        projectileRb.useGravity = false;
+                        projectileRb.drag = frictionShotData.Drag;
+
+                        projectileRb.AddForce(projectileObject.transform.forward * frictionShotData.Force, ForceMode.Impulse);
                         break;
                 }
             }
@@ -81,8 +89,8 @@ public class ShotInfo : ScriptableObject
                         weaponInfo.shotData = new DirectShotData();
                         break;
 
-                    case ShotMode.Spiral:
-                        weaponInfo.shotData = new ParabolicShotData();
+                    case ShotMode.Friction:
+                        weaponInfo.shotData = new FrictionShotData();
                         break;
                 }
 
@@ -101,8 +109,8 @@ public class ShotInfo : ScriptableObject
                         weaponInfo.projectileData = new BlackHoleProjectileData();
                         break;
 
-                    case ProjectileMode.Explosion:
-                        weaponInfo.projectileData = new BlackHoleProjectileData();
+                    case ProjectileMode.Explosive:
+                        weaponInfo.projectileData = new ExplosiveProjectileData();
                         break;
                 }
 
@@ -114,5 +122,5 @@ public class ShotInfo : ScriptableObject
     }
 }
 
-public enum ShotMode { Parabolic, Direct, Spiral }
-public enum ProjectileMode { None, BlackHole, Explosion }
+public enum ShotMode { Parabolic, Direct, Friction }
+public enum ProjectileMode { None, BlackHole, Explosive }

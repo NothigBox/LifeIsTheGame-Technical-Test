@@ -33,6 +33,36 @@ MonoBehaviour:
     projectileData:
       rid: 3852765776395370504
     lastProjectileMode: 1
+  - id: MyWeapon
+    shotMode: 2
+    shotData:
+      rid: 3852765795500425227
+    lastShotMode: 2
+    projectileModel: {fileID: 1931233731261134883, guid: 3ab50d26f174365459b8b59816e2add6, type: 3}
+    projectileMode: 2
+    projectileData:
+      rid: 3852765795500425229
+    lastProjectileMode: 2
+  - id: ExplosiveBomb
+    shotMode: 0
+    shotData:
+      rid: 3852765795500425233
+    lastShotMode: 0
+    projectileModel: {fileID: 1931233731261134883, guid: 33afab5fe36574441a37fc226bd9dea7, type: 3}
+    projectileMode: 2
+    projectileData:
+      rid: 3852765795500425229
+    lastProjectileMode: 2
+  - id: ParabolicBlackHole
+    shotMode: 0
+    shotData:
+      rid: 3852765795500425233
+    lastShotMode: 0
+    projectileModel: {fileID: 1931233731261134883, guid: 3ab50d26f174365459b8b59816e2add6, type: 3}
+    projectileMode: 1
+    projectileData:
+      rid: 3852765795500425234
+    lastProjectileMode: 1
   references:
     version: 2
     RefIds:
@@ -41,9 +71,9 @@ MonoBehaviour:
     - rid: 3852765776395370504
       type: {class: BlackHoleProjectileData, ns: , asm: Assembly-CSharp}
       data:
-        force: 3
-        radius: 5
-        mass: 5
+        force: 1.5
+        radius: 7
+        mass: 8
     - rid: 3852765776395370505
       type: {class: ParabolicShotData, ns: , asm: Assembly-CSharp}
       data:
@@ -52,4 +82,26 @@ MonoBehaviour:
     - rid: 3852765776395370506
       type: {class: DirectShotData, ns: , asm: Assembly-CSharp}
       data:
-        speed: 7
+        speed: 6
+    - rid: 3852765795500425227
+      type: {class: FrictionShotData, ns: , asm: Assembly-CSharp}
+      data:
+        drag: 3
+        force: 15
+    - rid: 3852765795500425229
+      type: {class: ExplosiveProjectileData, ns: , asm: Assembly-CSharp}
+      data:
+        force: 20
+        radius: 5
+        lifeTime: 3
+    - rid: 3852765795500425233
+      type: {class: ParabolicShotData, ns: , asm: Assembly-CSharp}
+      data:
+        forceY: 100
+        forceXZ: 50
+    - rid: 3852765795500425234
+      type: {class: BlackHoleProjectileData, ns: , asm: Assembly-CSharp}
+      data:
+        force: 3
+        radius: 20
+        mass: 10

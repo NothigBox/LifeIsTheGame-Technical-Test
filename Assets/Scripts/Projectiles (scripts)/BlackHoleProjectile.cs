@@ -2,14 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class BlackHoleProjectile : MonoBehaviour
+public class BlackHoleProjectile : Projectile<BlackHoleProjectileData>
 {
-    private BlackHoleProjectileData data;
+    public override void SetData(BlackHoleProjectileData projectileData)
+    {
+        base.SetData(projectileData);
+
+        _Rigidbody.mass = data.Mass;
+
+        var newCol = new GameObject("BlackHoleCollider");
+        newCol.transform.SetParent(transform);
+        newCol.transform.localPosition = Vector3.zero;
+        newCol.transform.localRotation = Quaternion.identity;
+        newCol.transform.localScale = Vector3.one;
+
+        var sphereCollider = newCol.AddComponent<SphereCollider>();
+        sphereCollider.isTrigger = true;
+        sphereCollider.radius = data.Radius;
+    }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Enemy")) 
+        if (other.CompareTag("Enemy"))
         {
             var otherRb = other.GetComponent<Rigidbody>();
 
@@ -21,22 +35,6 @@ public class BlackHoleProjectile : MonoBehaviour
 
             otherRb.AddForce((transform.position - other.transform.position).normalized * F, ForceMode.Acceleration);
         }
-    }
-
-    public void SetData(BlackHoleProjectileData projectileData)
-    {
-        data = projectileData;
-
-        GetComponent<Rigidbody>().mass = data.Mass;
-
-        var newCol = new GameObject("BlackHoleCollider");
-        newCol.transform.SetParent(transform);
-        newCol.transform.localPosition = Vector3.zero;
-        newCol.transform.localRotation = Quaternion.identity;
-
-        var sphereCollider = newCol.AddComponent<SphereCollider>();
-        sphereCollider.isTrigger = true;
-        sphereCollider.radius = data.Radius;
     }
 
     private void OnDrawGizmos()
